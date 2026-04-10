@@ -1,7 +1,6 @@
 interface Notificação {
     void enviar();
 }
-
 class EmailNotificacao implements Notificação {
     public void enviar() { System.out.println("Enviando por Email"); }
 }
@@ -10,6 +9,37 @@ class SMSNotificacao implements Notificação {
 }
 class PushNotificacao implements Notificação {
     public void enviar() { System.out.println("Enviando por Push"); }
+}
+
+class APIExternaSMS {
+    public void enviarMensagemSMS() {
+        System.out.println("Enviando por API Externa SMS");
+    }
+}
+
+class SMSAdapter implements Notificação {
+    private APIExternaSMS smsAdapter;
+    public SMSAdapter(APIExternaSMS smsAdapter) {
+        this.smsAdapter = smsAdapter;
+    }
+
+    @Override
+    public void enviar() {
+        smsAdapter.enviarMensagemSMS();
+    }
+}
+
+class EnvioNotificacaoProxy implements Notificação {
+    private Notificação notificacao;
+    public EnvioNotificacaoProxy(Notificação notificacao) {
+        this.notificacao = notificacao;
+    }
+    @Override
+    public void enviar() {
+        System.out.println("[LOG] Iniciando envio..."); 
+        notificacao.enviar();                       
+        System.out.println("[LOG] Envio concluído.");
+    }
 }
 
 class ConfiguraçãoGlobal {
@@ -55,19 +85,14 @@ class EnviarNotificação {
 
 }
 
-
-class teste {
-    public static teste create() {
-        System.out.println("Criando teste");
-        return new teste();
-    }
-}
-
 public class Main {
     public static void main(String[] args) {
-        Notificação email = EnviarNotificação.createEmail();
-        Notificação sms = EnviarNotificação.createSMS();
-        Notificação push = EnviarNotificação.createPush();
+        Notificação email = new EnvioNotificacaoProxy(EnviarNotificação.createEmail());
+        Notificação sms = new EnvioNotificacaoProxy(EnviarNotificação.createSMS());
+        Notificação push = new EnvioNotificacaoProxy(EnviarNotificação.createPush());
+        APIExternaSMS apiExterna = new APIExternaSMS();
+        Notificação smsViaAdapter = new EnvioNotificacaoProxy(new SMSAdapter(apiExterna));
+        smsViaAdapter.enviar();
         email.enviar();
         sms.enviar();
         push.enviar();
