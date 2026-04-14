@@ -23,17 +23,11 @@ class ConfiguraçãoGlobal {
         return instancia;
     }
 
-    public void GuardaNome(String nome) {
-        System.out.println(nome);
-    }
+    public void GuardaNome(String nome) {System.out.println(nome);}
 
-    public void GuardaServidor(String servidor) {
-        System.out.println(servidor);
-    }
+    public void GuardaServidor(String servidor) {System.out.println(servidor);}
 
-    public void GuardaTentativas(int tentativas) {
-        System.out.println(tentativas);
-    }
+    public void GuardaTentativas(int tentativas) {System.out.println(tentativas);}
 
 }
 
