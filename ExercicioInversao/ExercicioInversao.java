@@ -117,15 +117,13 @@ class Unicamp implements Observer {
 
 public class ExercicioInversao {
     public static void main(String[] args) {
-        // Temperatura compartilhada (mesmo valor para todos)
+        
         Temperatura temperatura = new Temperatura();
 
-        // PH separado por universidade
         PH phUnifesp = new PH();
         PH phUsp = new PH();
         PH phUnicamp = new PH();
 
-        // Umidade separada por universidade
         UmidadeRelativa umidadeUnifesp = new UmidadeRelativa();
         UmidadeRelativa umidadeUsp = new UmidadeRelativa();
         UmidadeRelativa umidadeUnicamp = new UmidadeRelativa();
@@ -137,7 +135,7 @@ public class ExercicioInversao {
         temperatura.addObserver(unifesp);
         temperatura.addObserver(usp);
         temperatura.addObserver(unicamp);
-        
+
         phUnifesp.addObserver(unifesp);
         phUsp.addObserver(usp);
         phUnicamp.addObserver(unicamp);
