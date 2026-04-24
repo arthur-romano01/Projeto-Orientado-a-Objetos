@@ -117,9 +117,18 @@ class Unicamp implements Observer {
 
 public class ExercicioInversao {
     public static void main(String[] args) {
+        // Temperatura compartilhada (mesmo valor para todos)
         Temperatura temperatura = new Temperatura();
-        PH ph = new PH();
-        UmidadeRelativa umidade = new UmidadeRelativa();
+
+        // PH separado por universidade
+        PH phUnifesp = new PH();
+        PH phUsp = new PH();
+        PH phUnicamp = new PH();
+
+        // Umidade separada por universidade
+        UmidadeRelativa umidadeUnifesp = new UmidadeRelativa();
+        UmidadeRelativa umidadeUsp = new UmidadeRelativa();
+        UmidadeRelativa umidadeUnicamp = new UmidadeRelativa();
 
         Observer unifesp = new Unifesp();
         Observer usp = new USP();
@@ -128,22 +137,26 @@ public class ExercicioInversao {
         temperatura.addObserver(unifesp);
         temperatura.addObserver(usp);
         temperatura.addObserver(unicamp);
+        
+        phUnifesp.addObserver(unifesp);
+        phUsp.addObserver(usp);
+        phUnicamp.addObserver(unicamp);
 
-        ph.addObserver(unifesp);
-        ph.addObserver(usp);
-        ph.addObserver(unicamp);
-
-        umidade.addObserver(unifesp);
-        umidade.addObserver(usp);
-        umidade.addObserver(unicamp);
+        umidadeUnifesp.addObserver(unifesp);
+        umidadeUsp.addObserver(usp);
+        umidadeUnicamp.addObserver(unicamp);
 
         System.out.println("=== Atualizando Temperatura ===");
         temperatura.setTemp(32.5);
 
         System.out.println("\n=== Atualizando PH ===");
-        ph.setPh(6.8);
+        phUnifesp.setPh(6.8);
+        phUsp.setPh(7.2);
+        phUnicamp.setPh(5.9);
 
         System.out.println("\n=== Atualizando Umidade Relativa ===");
-        umidade.setUmidadeRelativa(85.0);
+        umidadeUnifesp.setUmidadeRelativa(85.0);
+        umidadeUsp.setUmidadeRelativa(72.3);
+        umidadeUnicamp.setUmidadeRelativa(91.5);
     }
 }
